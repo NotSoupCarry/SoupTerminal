@@ -1,0 +1,101 @@
+/* ============================================================
+   SoupTerminal — style.css
+   Tutto il tema vive qui. Per ri-tematizzare cambia le
+   variabili in :root.
+   ============================================================ */
+
+:root {
+  --bg:      #0b0e14;   /* sfondo */
+  --fg:      #c7ccd6;   /* testo normale */
+  --dim:     #5c6370;   /* testo attenuato */
+  --user:    #7ee787;   /* verde: utente */
+  --host:    #56d4dd;   /* ciano: host */
+  --path:    #6cb6ff;   /* blu: percorso */
+  --accent:  #f0a45d;   /* ambra: titoli/accenti */
+  --err:     #ff6b6b;   /* rosso: errori */
+  --font:    "SF Mono", "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 20px;
+  overflow-y: auto;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.06);  /* bagliore fosfori */
+}
+
+/* ---------- effetto CRT: la "firma" estetica ---------- */
+body::before {                 /* scanline orizzontali */
+  content: "";
+  position: fixed; inset: 0; z-index: 9; pointer-events: none;
+  background: repeating-linear-gradient(
+    transparent 0, transparent 2px,
+    rgba(0, 0, 0, 0.18) 3px, rgba(0, 0, 0, 0.18) 3px);
+  opacity: .35;
+}
+body::after {                  /* vignetta ai bordi */
+  content: "";
+  position: fixed; inset: 0; z-index: 8; pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    transparent 60%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+#screen {
+  max-width: 900px;
+  margin: 0;              /* a sinistra (era "0 auto" = centrato) */
+}
+
+/* pre-wrap SOLO sull'output, non sul contenitore: così lo spazio bianco
+   del sorgente HTML tra #output e #inputLine non diventa una riga vuota
+   sopra al prompt. È questo che teneva il prompt "staccato". */
+#output {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* colori "ANSI" riusabili nell'output */
+.c-user { color: var(--user); }
+.c-host { color: var(--host); }
+.c-path { color: var(--path); }
+.c-acc  { color: var(--accent); font-weight: 600; }
+.c-dim  { color: var(--dim); }
+.c-err  { color: var(--err); }
+
+/* la riga di input attiva */
+#inputLine { display: flex; }
+#prompt    { white-space: pre; flex-shrink: 0; }
+#typed     { white-space: pre; }
+#cmdline {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: transparent;         /* testo invisibile: si vede solo il mirror #typed */
+  font: inherit;
+  caret-color: transparent;   /* nascondo anche il caret vero, uso quello finto */
+  padding: 0;
+}
+
+/* cursore lampeggiante finto */
+#cursor {
+  display: inline-block;
+  width: 9px; height: 1.1em;
+  background: var(--fg);
+  vertical-align: text-bottom;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+a { color: var(--path); }
+::selection { background: rgba(120, 180, 255, .3); }
+
+/* rispetta chi ha ridotto le animazioni */
+@media (prefers-reduced-motion: reduce) {
+  #cursor { animation: none; }
+}

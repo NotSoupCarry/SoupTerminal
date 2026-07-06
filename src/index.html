@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoupTerminal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--
+    SoupTerminal
+    ------------
+    Struttura minima: uno "schermo" con l'area di output
+    e una riga di input che compare dopo la boot sequence.
+    Tutta la logica è in terminal.js, tutto lo stile in style.css.
+  -->
+  <div id="screen">
+    <div id="output"></div>
+
+    <div id="inputLine" hidden>
+      <span id="prompt"></span>
+      <span id="typed"></span><span id="cursor"></span>
+      <input id="cmdline" autofocus autocomplete="off" spellcheck="false"
+             aria-label="Riga di comando">
+    </div>
+  </div>
+
+  <script src="terminal.js"></script>
+</body>
+</html>
