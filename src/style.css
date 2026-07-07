@@ -49,6 +49,7 @@ body::after {
   word-break: break-word;
 }
 
+
 .c-user { color: var(--user); }
 .c-host { color: var(--host); }
 .c-path { color: var(--path); }
