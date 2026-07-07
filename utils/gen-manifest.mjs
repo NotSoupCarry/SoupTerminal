@@ -1,4 +1,3 @@
-// gen-manifest.mjs
 // Scansiona la cartella content/ e scrive content/!manifest.json:
 // un albero che rispecchia le cartelle, con i file -> percorso (URL).
 //     node gen-manifest.mjs

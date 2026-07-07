@@ -1,4 +1,3 @@
-// fetch-readmes.mjs
 // Scarica i README (markdown grezzo) di una LISTA di repo che decidi tu
 // e li salva in src/content/projects/<repo>.md.
 // Lancialo prima di gen-manifest.mjs:
