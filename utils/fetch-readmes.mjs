@@ -13,6 +13,7 @@ const REPOS = [
   ".dotfiles",
   "SoupTerminal",
   "tchess",
+  "webcrawlercpp",
 ];
 // ────────────────────────────────────────────────────────────
 
