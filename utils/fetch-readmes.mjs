@@ -14,6 +14,7 @@ const OWNER = "NotSoupCarry";
 const REPOS = [
   ".dotfiles",
   "SoupTerminal",
+  "tchess",
   // aggiungi qui i repo che vuoi mostrare in /projects
 ];
 // ────────────────────────────────────────────────────────────
