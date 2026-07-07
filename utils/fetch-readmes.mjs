@@ -47,7 +47,8 @@ for (const entry of REPOS) {
   try {
     const md = await fetchReadme(fullName);
     // link alla repo in coda (dinamico da owner/repo)
-    const content = `${md.trimEnd()}\n\n---\nRepo: https://github.com/${fullName}\n`;
+    const repoUrl = `https://github.com/${fullName}`;
+    const content = `${md.trimEnd()}\n\n---\n<a href="${repoUrl}" target="_blank" rel="noopener">go to repo →</a>\n`;
     await writeFile(join(OUT_DIR, `${name}.md`), content);
     console.log(`✓ ${fullName} -> ${OUT_DIR}/${name}.md`);
     ok++;
