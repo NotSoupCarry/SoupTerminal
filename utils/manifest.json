@@ -1,6 +1,0 @@
-{
-  "about.txt": "src/content/about.txt",
-  "projects": {
-    "dotfiles.md": "src/content/projects/dotfiles.md"
-  }
-}
