@@ -1,7 +1,7 @@
 // Scarica i README (markdown grezzo) di una LISTA di repo che decidi tu
 // e li salva in src/content/projects/<repo>.md, con in coda un link alla repo.
 // Lancialo prima di gen-manifest.mjs:
-//     node fetch-readmes.mjs && node gen-manifest.mjs
+//     node utils/fetch-readmes.mjs && node utils/gen-manifest.mjs
 
 import { writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
