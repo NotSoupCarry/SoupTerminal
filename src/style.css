@@ -49,7 +49,6 @@ body::after {
   word-break: break-word;
 }
 
-/* colori "ANSI" riusabili nell'output */
 .c-user { color: var(--user); }
 .c-host { color: var(--host); }
 .c-path { color: var(--path); }
@@ -57,7 +56,6 @@ body::after {
 .c-dim  { color: var(--dim); }
 .c-err  { color: var(--err); }
 
-/* la riga di input attiva */
 #inputLine { display: flex; }
 #prompt    { white-space: pre; flex-shrink: 0; }
 #typed     { white-space: pre; }
