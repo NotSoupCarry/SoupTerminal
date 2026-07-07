@@ -103,6 +103,15 @@ const COMMANDS = {
   date:   { desc: "print date and time", run: () => new Date().toString() },
   clear:  { desc: "clear screen",        run: () => { out.innerHTML = ""; return ""; } },
 
+  reboot: {
+    desc: "restart the terminal",
+    run: () => {
+      print('<span class="c-dim">Rebooting…</span>');
+      setTimeout(() => location.reload(), 700);   // ricarica la pagina = riparte dal boot
+      return "";
+    }
+  },
+
   history: {
     desc: "show command history",
     run: () => history.map((h, i) => `${String(i + 1).padStart(3)} - ${h}`).join("\n")

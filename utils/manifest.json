@@ -1,6 +1,6 @@
 {
   "about.txt": "src/content/about.txt",
   "projects": {
-    "tuffgramma.md": "src/content/projects/tuffgramma.md"
+    "dotfiles.md": "src/content/projects/dotfiles.md"
   }
 }
