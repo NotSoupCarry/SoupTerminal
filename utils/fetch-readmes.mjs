@@ -12,7 +12,7 @@ const OWNER = "NotSoupCarry";
 // ── LA TUA LISTA ────────────────────────────────────────────
 // Nome del repo (sotto OWNER) oppure "altro-owner/repo" per repo di altri.
 const REPOS = [
-  "tuffgramma",
+  ".dotfiles",
   "SoupTerminal",
   // aggiungi qui i repo che vuoi mostrare in /projects
 ];
