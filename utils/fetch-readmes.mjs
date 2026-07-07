@@ -2,33 +2,28 @@
 // e li salva in src/content/projects/<repo>.md, con in coda un link alla repo.
 // Lancialo prima di gen-manifest.mjs:
 //     node fetch-readmes.mjs && node gen-manifest.mjs
-// In GitHub Actions usa GITHUB_TOKEN (già disponibile) per il rate limit.
 
 import { writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 
 const OWNER = "NotSoupCarry";
 
-// ── LA TUA LISTA ────────────────────────────────────────────
-// Nome del repo (sotto OWNER) oppure "altro-owner/repo" per repo di altri.
+// ── REPO LIST ────────────────────────────────────────────
 const REPOS = [
   ".dotfiles",
   "SoupTerminal",
   "tchess",
-  // aggiungi qui i repo che vuoi mostrare in /projects
 ];
 // ────────────────────────────────────────────────────────────
 
 const OUT_DIR = "src/content/projects";
-const token = process.env.GITHUB_TOKEN;   // presente in Actions; in locale può mancare
+const token = process.env.GITHUB_TOKEN;
 
-// ripulisce il nome del file: via il punto iniziale e i caratteri strani
-// (.dotfiles -> dotfiles ; "we:ird<x>" -> weirdx)
 function safeName(name) {
   return name
-    .replace(/^\.+/, "")               // punti iniziali
-    .replace(/[<>:;'"/\\|?*]/g, "")    // caratteri non validi / strani
-    .trim() || "unnamed";              // fallback se resta vuoto
+    .replace(/^\.+/, "")
+    .replace(/[<>:;'"/\\|?*]/g, "")
+    .trim() || "unnamed";        
 }
 
 async function fetchReadme(fullName) {
