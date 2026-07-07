@@ -1,5 +1,5 @@
 // Scarica i README (markdown grezzo) di una LISTA di repo che decidi tu
-// e li salva in src/content/projects/<repo>.md.
+// e li salva in src/content/projects/<repo>.md, con in coda un link alla repo.
 // Lancialo prima di gen-manifest.mjs:
 //     node fetch-readmes.mjs && node gen-manifest.mjs
 // In GitHub Actions usa GITHUB_TOKEN (già disponibile) per il rate limit.
@@ -22,6 +22,15 @@ const REPOS = [
 const OUT_DIR = "src/content/projects";
 const token = process.env.GITHUB_TOKEN;   // presente in Actions; in locale può mancare
 
+// ripulisce il nome del file: via il punto iniziale e i caratteri strani
+// (.dotfiles -> dotfiles ; "we:ird<x>" -> weirdx)
+function safeName(name) {
+  return name
+    .replace(/^\.+/, "")               // punti iniziali
+    .replace(/[<>:;'"/\\|?*]/g, "")    // caratteri non validi / strani
+    .trim() || "unnamed";              // fallback se resta vuoto
+}
+
 async function fetchReadme(fullName) {
   const res = await fetch(`https://api.github.com/repos/${fullName}/readme`, {
     headers: {
@@ -39,10 +48,12 @@ await mkdir(OUT_DIR, { recursive: true });
 let ok = 0;
 for (const entry of REPOS) {
   const fullName = entry.includes("/") ? entry : `${OWNER}/${entry}`;
-  const name = fullName.split("/")[1];
+  const name = safeName(fullName.split("/")[1]);
   try {
     const md = await fetchReadme(fullName);
-    await writeFile(join(OUT_DIR, `${name}.md`), md);
+    // link alla repo in coda (dinamico da owner/repo)
+    const content = `${md.trimEnd()}\n\n---\nRepo: https://github.com/${fullName}\n`;
+    await writeFile(join(OUT_DIR, `${name}.md`), content);
     console.log(`✓ ${fullName} -> ${OUT_DIR}/${name}.md`);
     ok++;
   } catch (e) {
