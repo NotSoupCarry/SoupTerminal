@@ -1,18 +1,12 @@
-/* ============================================================
-   SoupTerminal — style.css
-   Tutto il tema vive qui. Per ri-tematizzare cambia le
-   variabili in :root.
-   ============================================================ */
-
 :root {
-  --bg:      #0b0e14;   /* sfondo */
-  --fg:      #c7ccd6;   /* testo normale */
-  --dim:     #5c6370;   /* testo attenuato */
-  --user:    #7ee787;   /* verde: utente */
-  --host:    #56d4dd;   /* ciano: host */
-  --path:    #6cb6ff;   /* blu: percorso */
-  --accent:  #f0a45d;   /* ambra: titoli/accenti */
-  --err:     #ff6b6b;   /* rosso: errori */
+  --bg:      #0b0e14; 
+  --fg:      #c7ccd6; 
+  --dim:     #5c6370;
+  --user:    #7ee787;
+  --host:    #56d4dd;
+  --path:    #6cb6ff;
+  --accent:  #f0a45d;
+  --err:     #ff6b6b;
   --font:    "SF Mono", "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
 }
 
@@ -27,11 +21,10 @@ body {
   line-height: 1.5;
   padding: 20px;
   overflow-y: auto;
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.06);  /* bagliore fosfori */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.06);
 }
 
-/* ---------- effetto CRT: la "firma" estetica ---------- */
-body::before {                 /* scanline orizzontali */
+body::before {
   content: "";
   position: fixed; inset: 0; z-index: 9; pointer-events: none;
   background: repeating-linear-gradient(
@@ -39,7 +32,7 @@ body::before {                 /* scanline orizzontali */
     rgba(0, 0, 0, 0.18) 3px, rgba(0, 0, 0, 0.18) 3px);
   opacity: .35;
 }
-body::after {                  /* vignetta ai bordi */
+body::after {
   content: "";
   position: fixed; inset: 0; z-index: 8; pointer-events: none;
   background: radial-gradient(ellipse at center,
@@ -48,12 +41,9 @@ body::after {                  /* vignetta ai bordi */
 
 #screen {
   max-width: 900px;
-  margin: 0;              /* a sinistra (era "0 auto" = centrato) */
+  margin: 0;
 }
 
-/* pre-wrap SOLO sull'output, non sul contenitore: così lo spazio bianco
-   del sorgente HTML tra #output e #inputLine non diventa una riga vuota
-   sopra al prompt. È questo che teneva il prompt "staccato". */
 #output {
   white-space: pre-wrap;
   word-break: break-word;
@@ -76,9 +66,9 @@ body::after {                  /* vignetta ai bordi */
   background: transparent;
   border: none;
   outline: none;
-  color: transparent;         /* testo invisibile: si vede solo il mirror #typed */
+  color: transparent;
   font: inherit;
-  caret-color: transparent;   /* nascondo anche il caret vero, uso quello finto */
+  caret-color: transparent;
   padding: 0;
 }
 
@@ -95,7 +85,6 @@ body::after {                  /* vignetta ai bordi */
 a { color: var(--path); }
 ::selection { background: rgba(120, 180, 255, .3); }
 
-/* rispetta chi ha ridotto le animazioni */
 @media (prefers-reduced-motion: reduce) {
   #cursor { animation: none; }
 }
