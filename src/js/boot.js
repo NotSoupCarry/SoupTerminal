@@ -1,6 +1,5 @@
 "use strict";
 
-
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function bootLine(label) {
@@ -9,6 +8,9 @@ function bootLine(label) {
 }
 
 async function boot() {
+  await loadManifest();
+  await loadFiles(FS);
+
   const steps = [
     "Mounting virtual filesystem",
     "Cooking the soup",
@@ -21,7 +23,7 @@ async function boot() {
     "Killing all microslop services",
     "Yes the salt is OK",
     "Warming up CRT phosphors",
-    "Opening session for guest...",
+    "Opening session for guest",
   ];
   for (const s of steps) {
     bootLine(s);

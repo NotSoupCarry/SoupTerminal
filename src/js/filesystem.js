@@ -1,25 +1,6 @@
 "use strict";
 
-
-const FS = {
-  "about.txt":
-    "Giuseppe — Full-Stack Developer.\n" +
-    "TypeScript / Next.js / Node — e un debole per Go e Arch Linux.\n" +
-    "Prova: projects, whoami, neofetch",
-  "contatti.txt":
-    "email : tu@example.com\n" +
-    "github: github.com/tuo-utente\n" +
-    "site  : tuo-sito.dev",
-  progetti: {
-    "tuffgramma.md":
-      "TUFFGramma — gioco di parole (React + Spring Boot + Python).\n" +
-      "Deploy su VPS con Kubernetes.",
-    "soupterminal.md":
-      "SoupTerminal — questo terminale. Meta, no?\n" +
-      "È tutto in tre file: guarda il sorgente."
-  }
-};
-
+let FS = {};        
 let CWD = [];
 
 function resolve(pathParts) {
@@ -35,3 +16,26 @@ function resolve(pathParts) {
 const isDir = n => n && typeof n === "object";
 const cwdString = () => "~/" + CWD.join("/");
 const err = msg => `<span class="c-err">${msg}</span>`;
+
+async function loadManifest(url = "utils/manifest.json") {
+  try {
+    const res = await fetch(url);
+    if (res.ok) { FS = await res.json(); return; }
+    FS = { "ERROR": `(manifest non trovato: ${url})` };
+  } catch {
+    FS = { "ERROR": "(errore di rete sul manifest)" };
+  }
+}
+
+async function loadFiles(node) {
+  const jobs = Object.entries(node).map(async ([k, v]) => {
+    if (isDir(v)) return loadFiles(v);                 
+    try {
+      const res = await fetch(v);
+      node[k] = res.ok ? await res.text() : `(impossibile caricare ${v})`;
+    } catch {
+      node[k] = `(errore di rete su ${v})`;
+    }
+  });
+  await Promise.all(jobs);                              
+}
