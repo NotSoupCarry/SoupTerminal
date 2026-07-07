@@ -8,6 +8,8 @@ function bootLine(label) {
 }
 
 async function boot() {
+  cmdline.disabled = true;
+
   await loadManifest();
   await loadFiles(FS);
 
@@ -15,21 +17,29 @@ async function boot() {
     "Mounting virtual filesystem",
     "Cooking the soup",
     "Starting soupsh service",
-    "Checking for soup Hunger",
+    "Checking for Soup & Hunger",
+    "But it refused </3...",  
     "Putting the salt",
+    "Forget it! There’s no way you’re taking Kairi’s heart!",
     "Loading command registry",
     "Checking for salt",
+    "Sora, what is like to be the Choujin X?...",
     "Starting ubuntu server",
     "Killing all microslop services",
+    "SET YOUR HEART ABLAZE",
     "Yes the salt is OK",
+    "No one is around to help",
+    "Life is hard life is stressful",
+    "I need peace and tranquility",
     "Warming up CRT phosphors",
-    "Opening session for guest",
+    "Opening session for guest...",
+    "He became... A God",
   ];
   for (const s of steps) {
     bootLine(s);
     await sleep(90 + Math.random() * 300);
   }
-  await sleep(1);
+  await sleep(1500);
 
   out.innerHTML = "";
 
@@ -47,6 +57,7 @@ async function boot() {
     { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
   print(`<span class="c-dim">Last login: ${now} on ttys001</span>`);
 
+  cmdline.disabled = false;
   inputLine.hidden = false;
   renderPrompt();
   cmdline.focus();
